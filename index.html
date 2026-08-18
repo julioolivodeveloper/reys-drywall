@@ -649,5 +649,248 @@ function handleSubmit(e){
   setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Send Message';btn.style.background='';e.target.reset();},3000);
 }
 </script>
+
+<!-- ========== CHATBOT ========== -->
+<style>
+/* Chat toggle button */
+.chat-btn{position:fixed;bottom:28px;right:96px;z-index:901;width:58px;height:58px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 8px 28px rgba(27,58,107,.55);transition:var(--tr);border:none}
+.chat-btn:hover{background:var(--navy);transform:translateY(-2px)}
+.chat-btn .badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#E53935;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:pulse-r 2s infinite}
+@keyframes pulse-r{0%,100%{box-shadow:0 0 0 0 rgba(229,57,53,.4)}70%{box-shadow:0 0 0 8px rgba(229,57,53,0)}}
+
+/* Chat window */
+.chatbox{position:fixed;bottom:98px;right:28px;width:360px;max-height:520px;background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.22);z-index:902;display:flex;flex-direction:column;overflow:hidden;transition:opacity .3s ease,transform .3s ease;transform-origin:bottom right}
+.chatbox.hidden{opacity:0;transform:scale(.85) translateY(20px);pointer-events:none}
+
+/* Chat header */
+.ch-head{background:linear-gradient(135deg,var(--navy),var(--blue));padding:16px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ch-av{width:42px;height:42px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0}
+.ch-info .name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:.5px}
+.ch-info .status{font-size:11px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:5px}
+.ch-info .dot{width:7px;height:7px;background:#4CAF50;border-radius:50%;display:inline-block}
+.ch-close{margin-left:auto;background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.ch-close:hover{background:rgba(255,255,255,.25)}
+
+/* Messages */
+.ch-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ch-msgs::-webkit-scrollbar{width:4px}.ch-msgs::-webkit-scrollbar-thumb{background:var(--gray-l);border-radius:4px}
+.msg{max-width:82%;display:flex;flex-direction:column;gap:4px;animation:msgIn .25s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.6}
+.msg.bot .msg-bubble{background:var(--off);color:var(--dark);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+.msg-time{font-size:10px;color:var(--gray);padding:0 4px}
+.msg.user .msg-time{text-align:right}
+
+/* Quick replies */
+.quick-replies{display:flex;flex-wrap:wrap;gap:7px;padding:4px 0 6px}
+.qr-btn{background:#fff;border:1.5px solid var(--orange);color:var(--orange);padding:6px 13px;border-radius:20px;font-size:12px;font-family:'Open Sans',sans-serif;font-weight:600;cursor:pointer;transition:var(--tr);white-space:nowrap}
+.qr-btn:hover{background:var(--orange);color:#fff}
+
+/* Contact action buttons inside chat */
+.chat-actions{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.ca-btn{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:700;font-family:'Oswald',sans-serif;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;transition:var(--tr);cursor:pointer;border:none}
+.ca-call{background:#E87722;color:#fff}.ca-call:hover{background:#F4A853}
+.ca-wa{background:#25D366;color:#fff}.ca-wa:hover{background:#20bd5a}
+.ca-form{background:var(--navy);color:#fff}.ca-form:hover{background:var(--blue)}
+
+/* Typing indicator */
+.typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--off);border-radius:14px;border-bottom-left-radius:4px;width:fit-content}
+.typing span{width:7px;height:7px;background:var(--gray);border-radius:50%;animation:dot 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* Input row */
+.ch-input{border-top:1px solid var(--gray-l);padding:12px 14px;display:flex;gap:9px;flex-shrink:0}
+.ch-input input{flex:1;border:1.5px solid var(--gray-l);border-radius:22px;padding:9px 16px;font-family:'Open Sans',sans-serif;font-size:13px;outline:none;transition:var(--tr);color:var(--dark)}
+.ch-input input:focus{border-color:var(--orange)}
+.ch-send{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:var(--tr);flex-shrink:0}
+.ch-send:hover{background:var(--orange-l)}
+
+@media(max-width:400px){.chatbox{width:calc(100vw - 20px);right:10px}}
+</style>
+
+<!-- Chat toggle -->
+<button class="chat-btn" onclick="toggleChat()" id="chatToggle" aria-label="Open chat">
+  <i class="fa-solid fa-comment-dots" id="chatIcon"></i>
+  <span class="badge" id="chatBadge">1</span>
+</button>
+
+<!-- Chat window -->
+<div class="chatbox hidden" id="chatbox">
+  <div class="ch-head">
+    <div class="ch-av"><i class="fa-solid fa-trowel-bricks"></i></div>
+    <div class="ch-info">
+      <div class="name">Rey's Assistant</div>
+      <div class="status"><span class="dot"></span> Online now</div>
+    </div>
+    <button class="ch-close" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="ch-msgs" id="chMsgs"></div>
+  <div class="ch-input">
+    <input type="text" id="chIn" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="ch-send" onclick="sendMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script>
+// ---- FAQ DATA ----
+const faqs=[
+  {
+    keys:['estimate','quote','free','precio','costo','cost','presupuesto'],
+    answer:"Yes! We offer <strong>100% free estimates</strong> with no obligation. We'll come to your location, evaluate the project, and give you a detailed quote.",
+    actions:true
+  },
+  {
+    keys:['area','serve','location','where','city','sf','francisco','oakland','bay','daly','berkeley','zone','zona'],
+    answer:"We serve <strong>San Francisco, Daly City, South SF, Oakland, Berkeley</strong>, and the entire Bay Area. Not sure if we cover your area? Just ask!",
+    actions:true
+  },
+  {
+    keys:['how long','time','long','days','weeks','duration','cuanto','tiempo','tardar'],
+    answer:"It depends on the project size. A small repair can be done in <strong>1 day</strong>. A full room installation typically takes <strong>2–4 days</strong>. We always give you a timeline before starting.",
+    actions:false
+  },
+  {
+    keys:['license','insured','licensed','seguro','licencia','contractor','certified'],
+    answer:"Absolutely — we are <strong>fully licensed and insured</strong>. You can hire us with complete peace of mind.",
+    actions:false
+  },
+  {
+    keys:['repair','hole','crack','damage','patch','fix','water','arreglo','agujero','grieta'],
+    answer:"Yes, drywall repair is one of our specialties! Whether it's a small hole, a large crack, or water damage — we'll make it look like new with <strong>seamless texture matching</strong>.",
+    actions:true
+  },
+  {
+    keys:['install','installation','hang','new','room','basement','addition','instalar','nuevo'],
+    answer:"We handle full drywall and sheetrock installations for new construction, remodels, room additions, and basement finishing. Clean, flat, and ready to paint.",
+    actions:true
+  },
+  {
+    keys:['ceiling','popcorn','texture','finish','knockdown','skip','smooth','techo','cielo'],
+    answer:"Yes! We do ceiling work including <strong>popcorn removal, flat ceilings, knockdown, orange peel, and skip trowel</strong> finishes. We match any existing texture.",
+    actions:true
+  },
+  {
+    keys:['commercial','office','business','retail','empresa','negocio','comercial'],
+    answer:"Yes, we take on <strong>commercial projects</strong> — office buildouts, retail spaces, and renovations. We work efficiently to meet your business schedule.",
+    actions:true
+  },
+  {
+    keys:['hours','schedule','available','when','open','horario','disponible','cuándo'],
+    answer:"We're available <strong>Monday through Saturday, 7:00 AM – 7:00 PM</strong>. Contact us and we'll schedule at a time that works for you.",
+    actions:true
+  },
+  {
+    keys:['price','much','rate','charge','cobrar','cobras','cobro','tarifa'],
+    answer:"Pricing depends on the scope of work. We offer <strong>competitive, transparent rates</strong> with no hidden fees. Get a free estimate so we can give you an exact number!",
+    actions:true
+  },
+  {
+    keys:['hello','hi','hey','hola','good','buenas','help','ayuda','start','hello'],
+    answer:"Hi there! 👋 I'm Rey's virtual assistant. I can answer questions about our <strong>drywall and sheetrock services</strong>. What would you like to know?",
+    actions:false,
+    showQuick:true
+  }
+];
+
+const quickQs=[
+  "Free estimate?",
+  "Areas you serve?",
+  "Are you licensed?",
+  "How long does it take?",
+  "Do you do repairs?",
+  "Commercial work?"
+];
+
+const contactBtns=`<div class="chat-actions">
+  <a href="tel:+14155551234" class="ca-btn ca-call"><i class="fa-solid fa-phone"></i> Call Us Now</a>
+  <a href="https://wa.me/14155551234" target="_blank" rel="noopener" class="ca-btn ca-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+  <a href="#contact" onclick="closeChatGoForm()" class="ca-btn ca-form"><i class="fa-solid fa-clipboard-list"></i> Request a Quote</a>
+</div>`;
+
+let opened=false;
+
+function toggleChat(){
+  const box=document.getElementById('chatbox');
+  const icon=document.getElementById('chatIcon');
+  const badge=document.getElementById('chatBadge');
+  opened=!opened;
+  box.classList.toggle('hidden',!opened);
+  icon.className=opened?'fa-solid fa-xmark':'fa-solid fa-comment-dots';
+  if(opened){badge.style.display='none';if(!document.getElementById('chMsgs').children.length)initChat();}
+}
+
+function closeChatGoForm(){
+  toggleChat();
+  setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);
+}
+
+function initChat(){
+  const msgs=document.getElementById('chMsgs');
+  msgs.innerHTML='';
+  appendBot("Hello! 👋 I'm Rey's assistant. How can I help you today?",false,true);
+}
+
+function appendBot(html,actions=false,showQuick=false){
+  const msgs=document.getElementById('chMsgs');
+  // Typing indicator
+  const typing=document.createElement('div');
+  typing.className='msg bot';
+  typing.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    msgs.removeChild(typing);
+    const div=document.createElement('div');
+    div.className='msg bot';
+    const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    let inner=`<div class="msg-bubble">${html}</div>`;
+    if(actions) inner+=contactBtns;
+    if(showQuick){
+      inner+=`<div class="quick-replies">${quickQs.map(q=>`<button class="qr-btn" onclick="handleQuick('${q}')">${q}</button>`).join('')}</div>`;
+    }
+    inner+=`<span class="msg-time">${now}</span>`;
+    div.innerHTML=inner;
+    msgs.appendChild(div);
+    msgs.scrollTop=msgs.scrollHeight;
+  },800);
+}
+
+function appendUser(text){
+  const msgs=document.getElementById('chMsgs');
+  const div=document.createElement('div');
+  div.className='msg user';
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  div.innerHTML=`<div class="msg-bubble">${text}</div><span class="msg-time">${now}</span>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function handleQuick(q){appendUser(q);processInput(q);}
+
+function sendMsg(){
+  const inp=document.getElementById('chIn');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';
+  appendUser(text);
+  processInput(text);
+}
+
+function processInput(text){
+  const lower=text.toLowerCase();
+  for(const faq of faqs){
+    if(faq.keys.some(k=>lower.includes(k))){
+      appendBot(faq.answer,faq.actions,faq.showQuick||false);
+      return;
+    }
+  }
+  // Default fallback
+  appendBot("Great question! For more details, our team would be happy to help you directly. Reach out via any of the options below:",true,false);
+}
+</script>
 </body>
 </html>
