@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rey's Drywall & Sheetrock — Professional drywall installation, repair, and finishing in San Francisco, CA. 5-star rated, licensed & insured.">
+<title>Rey's Drywall & Sheetrock | San Francisco, CA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--blue:#1B3A6B;--orange:#E87722;--orange-l:#F4A853;
+  --white:#fff;--off:#F8F9FA;--gray-l:#E9ECEF;--gray:#6C757D;
+  --dark:#1A1A2E;--tr:all .3s ease;
+  --sh:0 10px 40px rgba(0,0,0,.12);--sh2:0 20px 60px rgba(0,0,0,.2);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden;line-height:1.7}
+h1,h2,h3,h4{font-family:'Oswald',sans-serif;font-weight:700;line-height:1.15;letter-spacing:.5px}
+img{max-width:100%;display:block}
+a{text-decoration:none}
+
+/* NAV */
+.nav{position:fixed;top:0;width:100%;z-index:1000;padding:20px 0;transition:var(--tr)}
+.nav.s{background:var(--navy);padding:12px 0;box-shadow:0 5px 30px rgba(0,0,0,.3)}
+.nav-in{max-width:1200px;margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:46px;height:46px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+.logo-b{font-family:'Oswald',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:1px;line-height:1;display:block}
+.logo-t{font-size:10px;color:var(--orange-l);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;transition:var(--tr);position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--orange);transition:var(--tr)}
+.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--orange)!important;color:#fff!important;padding:10px 22px;border-radius:4px}
+.nav-cta::after{display:none!important}.nav-cta:hover{background:var(--orange-l)!important}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
+.burger span{display:block;width:25px;height:2px;background:#fff;transition:var(--tr)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80') center/cover no-repeat;filter:brightness(.3);animation:zOut 15s ease-out forwards}
+@keyframes zOut{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,27,42,.9) 0%,rgba(27,58,107,.55) 60%,rgba(232,119,34,.15) 100%)}
+.hero-c{position:relative;max-width:1200px;margin:0 auto;padding:100px 30px 60px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,119,34,.15);border:1px solid var(--orange);color:var(--orange-l);padding:8px 18px;border-radius:30px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;animation:fid .8s ease .2s both}
+@keyframes fid{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fiu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.hero h1{font-size:clamp(46px,8vw,88px);color:#fff;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;line-height:1;animation:fiu .8s ease .4s both}
+.hero h1 span{color:var(--orange);display:block}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:rgba(255,255,255,.75);max-width:580px;margin-bottom:38px;animation:fiu .8s ease .6s both}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fiu .8s ease .8s both}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:4px;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;transition:var(--tr);border:2px solid transparent;cursor:pointer}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(232,119,34,.4)}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:48px;flex-wrap:wrap;margin-top:64px;padding-top:36px;border-top:1px solid rgba(255,255,255,.12);animation:fi .8s ease 1s both}
+.h-stat .num{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;color:var(--orange);line-height:1}
+.h-stat .lbl{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:2px;text-transform:uppercase;animation:bounce 2.5s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+
+/* COMMON */
+section{padding:96px 0}
+.container{max-width:1200px;margin:0 auto;padding:0 30px}
+.s-tag{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.s-title{font-size:clamp(34px,5vw,52px);color:var(--navy);text-transform:uppercase;margin-bottom:14px}
+.s-title span{color:var(--orange)}
+.s-desc{color:var(--gray);font-size:15px;max-width:520px;line-height:1.85}
+.divider{width:56px;height:4px;background:var(--orange);margin:18px 0}
+
+/* SERVICES */
+.services{background:var(--off)}
+.srv-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:54px}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.srv-card{background:#fff;border-radius:12px;padding:38px 30px;transition:var(--tr);border:1px solid var(--gray-l);position:relative;overflow:hidden}
+.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:var(--tr)}
+.srv-card:hover{transform:translateY(-8px);box-shadow:var(--sh2);border-color:transparent}
+.srv-card:hover::before{transform:scaleX(1)}
+.srv-icon{width:62px;height:62px;background:linear-gradient(135deg,var(--orange) 0%,var(--orange-l) 100%);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin-bottom:22px}
+.srv-card h3{font-size:19px;color:var(--navy);text-transform:uppercase;margin-bottom:10px;letter-spacing:.5px}
+.srv-card p{color:var(--gray);font-size:13.5px;line-height:1.8}
+.srv-more{display:inline-flex;align-items:center;gap:8px;color:var(--orange);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:18px;transition:var(--tr)}
+.srv-more:hover{gap:14px}
+
+/* STATS */
+.stats-sec{background:var(--navy);padding:68px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center}
+.stat-item{position:relative}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:10%;height:80%;width:1px;background:rgba(255,255,255,.1)}
+.stat-num{font-family:'Oswald',sans-serif;font-size:58px;font-weight:700;color:var(--orange);line-height:1}
+.stat-num sup{font-size:30px;vertical-align:top;margin-top:10px;display:inline-block}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:3px;text-transform:uppercase;margin-top:8px}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-img-w{position:relative}
+.about-img{width:100%;height:540px;object-fit:cover;border-radius:12px}
+.about-bdg{position:absolute;bottom:-22px;right:-22px;background:var(--orange);color:#fff;border-radius:12px;padding:28px;text-align:center;box-shadow:var(--sh)}
+.about-bdg .n{font-family:'Oswald',sans-serif;font-size:50px;font-weight:700;line-height:1}
+.about-bdg .t{font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.9}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.af{display:flex;align-items:flex-start;gap:13px}
+.af-icon{width:38px;height:38px;background:rgba(232,119,34,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:16px;flex-shrink:0}
+.af h4{font-size:13px;font-family:'Oswald',sans-serif;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+.af p{font-size:12.5px;color:var(--gray)}
+
+/* GALLERY */
+.gallery-sec{background:var(--off)}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,270px);gap:14px}
+.gal-item{position:relative;border-radius:10px;overflow:hidden;cursor:pointer}
+.gal-item:first-child{grid-column:span 2}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,27,42,.9) 0%,transparent 60%);opacity:0;transition:var(--tr);display:flex;align-items:flex-end;padding:22px}
+.gal-item:hover .gal-ov{opacity:1}
+.gal-ov span{font-family:'Oswald',sans-serif;color:#fff;font-size:17px;text-transform:uppercase;letter-spacing:1px}
+
+/* REVIEWS */
+.rev-hd{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+.g-rating{display:flex;align-items:center;gap:14px;background:var(--off);padding:18px 26px;border-radius:12px}
+.g-logo{font-size:30px;color:#4285F4}
+.r-num{font-family:'Oswald',sans-serif;font-size:46px;font-weight:700;color:var(--navy);line-height:1}
+.r-stars{color:#FBBC04;font-size:18px}
+.r-count{font-size:12px;color:var(--gray)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rev-card{background:#fff;border-radius:12px;padding:30px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid var(--gray-l);transition:var(--tr);position:relative}
+.rev-card:hover{transform:translateY(-5px);box-shadow:var(--sh)}
+.rev-card::before{content:'"';font-family:Georgia,serif;font-size:90px;color:var(--orange);opacity:.1;position:absolute;top:-18px;left:18px;line-height:1}
+.rev-hdr{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.rev-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+.rev-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--navy);text-transform:uppercase}
+.rev-date{font-size:11px;color:var(--gray)}
+.rev-stars{color:#FBBC04;font-size:13px;margin-bottom:11px}
+.rev-txt{font-size:13.5px;color:var(--gray);line-height:1.85;font-style:italic}
+.g-badge{display:flex;align-items:center;gap:5px;margin-top:14px;font-size:11px;color:var(--gray)}
+.g-badge i{color:#4285F4}
+
+/* CTA STRIP */
+.cta-strip{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);padding:96px 0;position:relative;overflow:hidden}
+.cta-strip::before{content:'';position:absolute;top:-50%;right:-8%;width:580px;height:580px;background:var(--orange);opacity:.05;border-radius:50%}
+.cta-c{text-align:center;position:relative}
+.cta-c h2{font-size:clamp(34px,5vw,56px);color:#fff;text-transform:uppercase;margin-bottom:14px}
+.cta-c h2 span{color:var(--orange)}
+.cta-c p{color:rgba(255,255,255,.7);font-size:17px;margin-bottom:38px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-white:hover{background:var(--off);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px}
+.c-item{display:flex;align-items:flex-start;gap:18px;margin-bottom:32px}
+.c-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--orange),var(--orange-l));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;flex-shrink:0}
+.c-item h4{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--gray);margin-bottom:5px}
+.c-item a,.c-item p{font-size:15px;color:var(--navy);font-weight:600}
+.c-item a:hover{color:var(--orange)}
+.c-form{background:var(--off);border-radius:16px;padding:44px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-grp{margin-bottom:18px}
+.f-grp label{display:block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:7px}
+.f-grp input,.f-grp textarea,.f-grp select{width:100%;padding:13px 16px;border:2px solid var(--gray-l);border-radius:8px;font-family:'Open Sans',sans-serif;font-size:13.5px;color:var(--dark);background:#fff;transition:var(--tr);outline:none}
+.f-grp input:focus,.f-grp textarea:focus,.f-grp select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,119,34,.1)}
+.f-grp textarea{height:110px;resize:vertical}
+.btn-block{width:100%;justify-content:center}
+.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.tag{background:var(--off);border:1px solid var(--gray-l);padding:5px 13px;border-radius:20px;font-size:12px;color:var(--navy)}
+
+/* MAP */
+.map-s{padding:0}
+.map-s iframe{width:100%;height:400px;border:none;filter:grayscale(10%)}
+
+/* FOOTER */
+footer{background:var(--navy);padding:68px 0 28px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:28px}
+.ft-brand p{color:rgba(255,255,255,.45);font-size:13.5px;margin-top:14px;line-height:1.8}
+.ft-social{display:flex;gap:10px;margin-top:22px}
+.soc{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:15px;transition:var(--tr)}
+.soc:hover{background:var(--orange);color:#fff;transform:translateY(-2px)}
+.ft-col h4{font-family:'Oswald',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:2px;color:#fff;margin-bottom:18px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-links a{color:rgba(255,255,255,.45);font-size:13.5px;transition:var(--tr);display:flex;align-items:center;gap:7px}
+.ft-links a:hover{color:var(--orange);padding-left:3px}
+.ft-ci{display:flex;align-items:flex-start;gap:11px;margin-bottom:12px}
+.ft-ci i{color:var(--orange);font-size:13px;margin-top:4px;width:14px}
+.ft-ci a,.ft-ci span{color:rgba(255,255,255,.55);font-size:13.5px;line-height:1.6}
+.ft-ci a:hover{color:var(--orange)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.ft-bot p{color:rgba(255,255,255,.25);font-size:12.5px}
+.ft-bot span{color:var(--orange)}
+
+/* FLOAT BTN */
+.float-btn{position:fixed;bottom:28px;right:28px;z-index:900;width:58px;height:58px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;box-shadow:0 8px 30px rgba(232,119,34,.5);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 8px 30px rgba(232,119,34,.5)}50%{box-shadow:0 8px 50px rgba(232,119,34,.8),0 0 0 14px rgba(232,119,34,.1)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links{position:fixed;top:0;right:-100%;height:100vh;width:270px;background:var(--navy);flex-direction:column;justify-content:center;gap:28px;transition:right .3s ease;box-shadow:-10px 0 40px rgba(0,0,0,.3);z-index:999}
+  .nav-links.open{right:0}
+  .burger{display:flex}
+  .srv-hd{flex-direction:column;align-items:flex-start}
+  .srv-grid{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr}
+  .about-img-w{order:-1}
+  .about-bdg{right:16px;bottom:-18px}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+  .stat-item:nth-child(2)::after{display:none}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,210px)}
+  .gal-item:first-child{grid-column:span 2}
+  .rev-hd{flex-direction:column;align-items:flex-start}
+  .rev-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:38px}
+}
+@media(max-width:580px){
+  .srv-grid{grid-template-columns:1fr}
+  .f-row{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:1fr;grid-template-rows:none}
+  .gal-item:first-child{grid-column:span 1}
+  .gal-item{height:200px}
+  .hero-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+      <div>
+        <span class="logo-b">Rey's Drywall</span>
+        <span class="logo-t">& Sheetrock</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="tel:+14155551234" class="nav-cta"><i class="fa-solid fa-phone"></i> Call Now</a></li>
+    </ul>
+    <div class="burger" id="burger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="hero-badge"><i class="fa-solid fa-star"></i> 5-Star Rated · San Francisco, CA</div>
+    <h1>Professional<span>Drywall &amp;</span>Sheetrock</h1>
+    <p class="hero-sub">Quality craftsmanship, clean finishes, and reliable service for residential and commercial projects across the Bay Area.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-clipboard-list"></i> Free Quote</a>
+      <a href="tel:+14155551234" class="btn btn-outline"><i class="fa-solid fa-phone"></i> Call Now</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="num">10+</div><div class="lbl">Years Experience</div></div>
+      <div class="h-stat"><div class="num">500+</div><div class="lbl">Projects Done</div></div>
+      <div class="h-stat"><div class="num">100%</div><div class="lbl">Satisfaction</div></div>
+      <div class="h-stat"><div class="num">5.0 ★</div><div class="lbl">Google Rating</div></div>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Scroll</span><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="srv-hd">
+      <div>
+        <div class="s-tag">What We Do</div>
+        <h2 class="s-title">Our <span>Services</span></h2>
+        <div class="divider"></div>
+      </div>
+      <p class="s-desc">From new installations to repairs and fine finishing — we handle every drywall and sheetrock project with precision.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card" data-aos="fade-up">
+        <div class="srv-icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+        <h3>Drywall Installation</h3>
+        <p>Full-scale drywall installation for new construction and remodels. We hang, tape, mud, and finish to perfection.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="srv-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="srv-icon"><i class="fa-solid fa-wrench"></i></div>
+        <h3>Drywall Repair</h3>
+        <p>Holes, cracks, water damage — we patch and restore your walls to look like new, seamlessly blending with existing texture.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="srv-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="srv-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <h3>Sheetrock Services</h3>
+        <p>Expert sheetrock hanging and finishing for walls and ceilings. Clean, flat, and ready-to-paint surfaces every time.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="srv-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="srv-icon"><i class="fa-solid fa-paint-roller"></i></div>
+        <h3>Texture &amp; Finishing</h3>
+        <p>Orange peel, knockdown, skip trowel, smooth finish — we match any existing texture or create a new look you love.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="srv-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="srv-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+        <h3>Ceiling Work</h3>
+        <p>Popcorn removal, flat ceilings, coffered designs, and acoustic panels. We work safely, cleanly, and efficiently.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="srv-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="srv-icon"><i class="fa-solid fa-building"></i></div>
+        <h3>Commercial Projects</h3>
+        <p>Office buildouts, retail spaces, and commercial renovations. We meet your deadlines without cutting corners.</p>
+        <a href="#contact" class="srv-more">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-sec">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item" data-aos="fade-up">
+        <div class="stat-num"><span class="counter" data-t="10">0</span><sup>+</sup></div>
+        <div class="stat-lbl">Years in Business</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-num"><span class="counter" data-t="500">0</span><sup>+</sup></div>
+        <div class="stat-lbl">Projects Completed</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-num"><span class="counter" data-t="200">0</span><sup>+</sup></div>
+        <div class="stat-lbl">Happy Clients</div>
+      </div>
+      <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-num"><span class="counter" data-t="5">0</span><sup>.0 ★</sup></div>
+        <div class="stat-lbl">Google Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-w" data-aos="fade-right">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Professional drywall craftsman at work" class="about-img">
+        <div class="about-bdg">
+          <div class="n">10+</div>
+          <div class="t">Years of<br>Excellence</div>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="s-tag">Who We Are</div>
+        <h2 class="s-title">Your Trusted <span>Local</span> Experts</h2>
+        <div class="divider"></div>
+        <p style="color:var(--gray);line-height:1.9;margin-bottom:20px;font-size:15px;">At Rey's Drywall &amp; Sheetrock, we've been serving homeowners and businesses in San Francisco and the Bay Area for over a decade. Our team is built on craftsmanship, reliability, and an uncompromising attention to detail.</p>
+        <p style="color:var(--gray);line-height:1.9;font-size:15px;">Whether you need a small patch job or a full commercial buildout, we show up on time, communicate clearly, and deliver results that exceed expectations — every single time.</p>
+        <div class="about-feats">
+          <div class="af">
+            <div class="af-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div><h4>Licensed &amp; Insured</h4><p>Fully licensed contractor, always protected</p></div>
+          </div>
+          <div class="af">
+            <div class="af-icon"><i class="fa-solid fa-clock"></i></div>
+            <div><h4>On-Time Delivery</h4><p>We respect your schedule and deadlines</p></div>
+          </div>
+          <div class="af">
+            <div class="af-icon"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div><h4>Fair Pricing</h4><p>Transparent quotes, no hidden fees ever</p></div>
+          </div>
+          <div class="af">
+            <div class="af-icon"><i class="fa-solid fa-star"></i></div>
+            <div><h4>5-Star Quality</h4><p>Consistently top-rated by our clients</p></div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="margin-top:34px;display:inline-flex;">
+          <i class="fa-solid fa-phone"></i> Free Estimate
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-sec" id="gallery">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:54px" data-aos="fade-up">
+      <div class="s-tag">Our Work</div>
+      <h2 class="s-title">Project <span>Gallery</span></h2>
+      <div class="divider" style="margin:16px auto"></div>
+      <p class="s-desc" style="margin:0 auto">Every project tells a story of precision and dedication.</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-item" data-aos="zoom-in">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80" alt="Drywall installation in progress">
+        <div class="gal-ov"><span>Drywall Installation</span></div>
+      </div>
+      <div class="gal-item" data-aos="zoom-in" data-aos-delay="80">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Smooth wall finish">
+        <div class="gal-ov"><span>Smooth Finish</span></div>
+      </div>
+      <div class="gal-item" data-aos="zoom-in" data-aos-delay="120">
+        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=80" alt="Interior renovation">
+        <div class="gal-ov"><span>Interior Remodel</span></div>
+      </div>
+      <div class="gal-item" data-aos="zoom-in" data-aos-delay="160">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Kitchen renovation">
+        <div class="gal-ov"><span>Ceiling Work</span></div>
+      </div>
+      <div class="gal-item" data-aos="zoom-in" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=900&q=80" alt="Commercial project">
+        <div class="gal-ov"><span>Commercial Project</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="rev-hd" data-aos="fade-up">
+      <div>
+        <div class="s-tag">What Clients Say</div>
+        <h2 class="s-title">Google <span>Reviews</span></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="g-rating">
+        <i class="fa-brands fa-google g-logo"></i>
+        <div>
+          <div class="r-num">5.0</div>
+          <div class="r-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <div class="r-count">Based on Google Reviews</div>
+        </div>
+      </div>
+    </div>
+    <!-- TrustIndex real Google reviews widget -->
+    <div data-aos="fade-up">
+      <script defer async src='https://cdn.trustindex.io/loader.js?b92d5c779ba451496d46aa88a6a'></script>
+    </div>
+    <div style="text-align:center;margin-top:40px" data-aos="fade-up">
+      <a href="https://maps.app.goo.gl/E3NuM11UQtNexAZAA" target="_blank" rel="noopener" class="btn btn-primary">
+        <i class="fa-brands fa-google"></i> See All Reviews on Google
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container">
+    <div class="cta-c" data-aos="zoom-in">
+      <h2>Ready to Start Your <span>Project?</span></h2>
+      <p>Get a free, no-obligation estimate. We serve San Francisco and the entire Bay Area.</p>
+      <div class="cta-btns">
+        <a href="tel:+14155551234" class="btn btn-white"><i class="fa-solid fa-phone"></i> Call Now</a>
+        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-clipboard-list"></i> Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:54px" data-aos="fade-up">
+      <div class="s-tag">Get In Touch</div>
+      <h2 class="s-title">Request a <span>Free Quote</span></h2>
+      <div class="divider" style="margin:16px auto"></div>
+      <p class="s-desc" style="margin:0 auto">Fill out the form and we'll get back to you within 24 hours with a detailed estimate.</p>
+    </div>
+    <div class="contact-grid">
+      <div data-aos="fade-right">
+        <h3 style="font-family:'Oswald',sans-serif;font-size:22px;text-transform:uppercase;color:var(--navy);margin-bottom:28px;">Contact Information</h3>
+        <div class="c-item">
+          <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+          <div><h4>Phone</h4><a href="tel:+14155551234">(415) 555-1234</a></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div><h4>Email</h4><a href="mailto:info@reysdrywallsf.com">info@reysdrywallsf.com</a></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div><h4>Location</h4><p>San Francisco, CA</p></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon"><i class="fa-solid fa-clock"></i></div>
+          <div><h4>Hours</h4><p>Mon – Sat: 7:00 AM – 7:00 PM</p></div>
+        </div>
+        <div style="margin-top:10px">
+          <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px;">Service Area</p>
+          <div class="tags">
+            <span class="tag">San Francisco</span>
+            <span class="tag">Daly City</span>
+            <span class="tag">South SF</span>
+            <span class="tag">Oakland</span>
+            <span class="tag">Berkeley</span>
+            <span class="tag">Whole Bay Area</span>
+          </div>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="c-form">
+          <form onsubmit="handleSubmit(event)">
+            <div class="f-row">
+              <div class="f-grp"><label>First Name</label><input type="text" placeholder="John" required></div>
+              <div class="f-grp"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
+            </div>
+            <div class="f-row">
+              <div class="f-grp"><label>Phone</label><input type="tel" placeholder="(415) 000-0000" required></div>
+              <div class="f-grp"><label>Email</label><input type="email" placeholder="john@email.com"></div>
+            </div>
+            <div class="f-grp">
+              <label>Service Needed</label>
+              <select>
+                <option value="">Select a service...</option>
+                <option>Drywall Installation</option>
+                <option>Drywall Repair</option>
+                <option>Sheetrock Services</option>
+                <option>Texture &amp; Finishing</option>
+                <option>Ceiling Work</option>
+                <option>Commercial Project</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="f-grp"><label>Project Details</label><textarea placeholder="Describe your project — location, size, timeline, etc."></textarea></div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-s">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.7!2d-122.4449195!3d37.7318004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7fe0b28bba5d%3A0x26821a01d2688b7e!2sRey's%20drywall%20and%20Sheetrock!5e0!3m2!1sen!2sus!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Rey's Drywall location"></iframe>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+          <div>
+            <span class="logo-b">Rey's Drywall</span>
+            <span class="logo-t">& Sheetrock</span>
+          </div>
+        </a>
+        <p>Professional drywall installation, repair, and finishing in San Francisco and the Bay Area. Quality you can see, service you can trust.</p>
+        <div class="ft-social">
+          <a href="#" class="soc"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://maps.app.goo.gl/E3NuM11UQtNexAZAA" target="_blank" rel="noopener" class="soc"><i class="fa-brands fa-google"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-yelp"></i></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Services</h4>
+        <ul class="ft-links">
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Drywall Installation</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Drywall Repair</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Sheetrock Services</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Texture &amp; Finishing</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Ceiling Work</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Commercial Projects</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul class="ft-links">
+          <li><a href="#home"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Home</a></li>
+          <li><a href="#about"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> About Us</a></li>
+          <li><a href="#gallery"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Gallery</a></li>
+          <li><a href="#reviews"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Reviews</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <div class="ft-ci"><i class="fa-solid fa-phone"></i><a href="tel:+14155551234">(415) 555-1234</a></div>
+        <div class="ft-ci"><i class="fa-solid fa-envelope"></i><a href="mailto:info@reysdrywallsf.com">info@reysdrywallsf.com</a></div>
+        <div class="ft-ci"><i class="fa-solid fa-location-dot"></i><span>San Francisco, CA</span></div>
+        <div class="ft-ci"><i class="fa-solid fa-clock"></i><span>Mon – Sat: 7AM – 7PM</span></div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>© 2024 <span>Rey's Drywall &amp; Sheetrock</span>. All rights reserved.</p>
+      <p>Serving <span>San Francisco</span> &amp; the Bay Area</p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="tel:+14155551234" class="float-btn" title="Call Now"><i class="fa-solid fa-phone"></i></a>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+AOS.init({duration:800,once:true,offset:80});
+
+// Sticky nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('s',window.scrollY>50));
+
+// Mobile menu
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+// Counter animation
+const statsEl=document.querySelector('.stats-sec');
+let counted=false;
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!counted){
+    counted=true;
+    document.querySelectorAll('.counter').forEach(el=>{
+      const target=+el.dataset.t,step=target/60;
+      let cur=0;
+      const t=setInterval(()=>{
+        cur+=step;
+        if(cur>=target){cur=target;clearInterval(t);}
+        el.textContent=Math.floor(cur);
+      },25);
+    });
+  }
+}).observe(statsEl);
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('button');
+  btn.innerHTML='<i class="fa-solid fa-check"></i> Message Sent!';
+  btn.style.background='#2D6A4F';
+  setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Send Message';btn.style.background='';e.target.reset();},3000);
+}
+</script>
+</body>
+</html>
